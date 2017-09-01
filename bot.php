@@ -30,7 +30,16 @@ $events = json_decode($content, true);
 // Get events index 0
 $data = $events['events'][0];
 $replyToken = $data['replyToken'];
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
+
+$replyMessage = 'ทุนเท่ากัน DD เท่ากัน 10%
+จาร A: สอนเทรดได้ order ละ 500 - 1000 จุด
+จาร A: ได้กำไรวันละ $10-$20
+----------
+จาร B: สอนเทรดได้ order ละ 50-100 จุด
+จาร B: ได้กำไรวันละ $50 - $100
+เรียนกับใครดี ?';
+
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($replyMessage);
 $response = $bot->replyMessage($replyToken, $textMessageBuilder);
 
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
