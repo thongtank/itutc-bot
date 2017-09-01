@@ -2,8 +2,13 @@
 $access_token = 'El29kUlVlDnk43OQWxmUu3pLbqEB6vx3PGS5qwloangM7/dW/Z5A0qZ9Eua++8ExUlQrz9iHWzFBIXmgqrRS16wlwDcOPWwx+IzfWasHux2sNlrBc048VTNTZAa6eLFKIg2dD3uSPKu9j6+C/XBbqwdB04t89/1O/w1cDnyilFU=';
 
 $content = file_get_contents('php://input');
+
 // Parse JSON
 $events = json_decode($content, true);
+$fp = fopen('event.txt', 'w');
+fwrite($fp, $events);
+fclose($fp);
+
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
     // Loop through each event
