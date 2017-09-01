@@ -9,6 +9,9 @@ $content = file_get_contents('php://input');
 
 // // parse to JSON data
 $data = json_decode($content, true);
+$file = fopen("./event.txt", "w");
+fwrite($file, $data);
+fclose($file);
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
 $response = $bot->replyMessage($data['events']['replyToken'], $textMessageBuilder);
