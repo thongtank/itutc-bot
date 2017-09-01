@@ -1,13 +1,48 @@
 <?php
+/*
+Array
+(
+[replyToken] => nHuyWiB7yP5Zw52FIkcQobQuGDXCTA
+[type] => message
+[timestamp] => 1462629479859
+[source] => Array
+(
+[type] => user
+[userId] => U206d25c2ea6bd87c17655609a1c37cb8
+)
+
+[message] => Array
+(
+[id] => 325708
+[type] => text
+[text] => Hello, world
+)
+
+)
+ */
+require_once __DIR__ . '/vendor/autoload.php';
+$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('El29kUlVlDnk43OQWxmUu3pLbqEB6vx3PGS5qwloangM7/dW/Z5A0qZ9Eua++8ExUlQrz9iHWzFBIXmgqrRS16wlwDcOPWwx+IzfWasHux2sNlrBc048VTNTZAa6eLFKIg2dD3uSPKu9j6+C/XBbqwdB04t89/1O/w1cDnyilFU=');
+$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => 'eead3f759f457b2e8d3e711a074ef8d0']);
+
+$content = file_get_contents('php://input');
+// Decode json data into array
+$events = json_decode($content, true);
+// Get events index 0
+$data = $events['events'][0];
+$replyToken = $data['replyToken'];
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
+$response = $bot->replyMessage($replyToken, $textMessageBuilder);
+
+echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+exit();
+
+// แบบ No SDK
 $access_token = 'El29kUlVlDnk43OQWxmUu3pLbqEB6vx3PGS5qwloangM7/dW/Z5A0qZ9Eua++8ExUlQrz9iHWzFBIXmgqrRS16wlwDcOPWwx+IzfWasHux2sNlrBc048VTNTZAa6eLFKIg2dD3uSPKu9j6+C/XBbqwdB04t89/1O/w1cDnyilFU=';
 
 $content = file_get_contents('php://input');
 
 // Parse JSON
 $events = json_decode($content, true);
-$fp = fopen('event.txt', 'w');
-fwrite($fp, $content);
-fclose($fp);
 
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
