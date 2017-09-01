@@ -6,7 +6,7 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 $fp = fopen('event.txt', 'w');
-fwrite($fp, $events);
+fwrite($fp, $content);
 fclose($fp);
 
 // Validate parsed JSON data
