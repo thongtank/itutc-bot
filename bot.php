@@ -6,7 +6,10 @@ $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => 'eead3f759f457b2e8d3e7
 $content = file_get_contents('php://input');
 
 // parse to JSON data
-$data = json_decode($content);
+$data = json_decode($content, true);
 
-print($data);
+$file = fopen("event.txt","w");
+fwrite($file, $data);
+fclose($file);
+
 exit();
