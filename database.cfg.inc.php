@@ -12,4 +12,5 @@ $app->register(new Herrera\Pdo\PdoServiceProvider(),
 print '<pre>';
 print_r($dbopts);
 print '</pre>';
+print 'pgsql:dbname=' . ltrim($dbopts["path"], '/') . ';host=' . $dbopts["host"] . ';port=' . $dbopts["port"];
 exit;
