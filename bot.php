@@ -10,14 +10,12 @@ Array
 [type] => user
 [userId] => U206d25c2ea6bd87c17655609a1c37cb8
 )
-
 [message] => Array
 (
 [id] => 325708
 [type] => text
 [text] => Hello, world
 )
-
 )
  */
 require_once __DIR__ . '/vendor/autoload.php';
@@ -25,20 +23,27 @@ $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('El29kUlVlDnk43OQWxmUu
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => 'eead3f759f457b2e8d3e711a074ef8d0']);
 
 $content = file_get_contents('php://input');
-print $content;exit;
 // Decode json data into array
 $events = json_decode($content, true);
 // Get events index 0
 $data = $events['events'][0];
 $replyToken = $data['replyToken'];
 
-$replyMessage = 'ทุนเท่ากัน DD เท่ากัน 10%
-จาร A: สอนเทรดได้ order ละ 500 - 1000 จุด
-จาร A: ได้กำไรวันละ $10-$20
-----------
-จาร B: สอนเทรดได้ order ละ 50-100 จุด
-จาร B: ได้กำไรวันละ $50 - $100
-เรียนกับใครดี ?';
+// $replyMessage = 'ทุนเท่ากัน DD เท่ากัน 10%
+// จาร A: สอนเทรดได้ order ละ 500 - 1000 จุด
+// จาร A: ได้กำไรวันละ $10-$20
+// ----------
+// จาร B: สอนเทรดได้ order ละ 50-100 จุด
+// จาร B: ได้กำไรวันละ $50 - $100
+// เรียนกับใครดี ?';
+
+if ($data['message']['text'] == 'Hi') {
+    $replyMessage = 'ไฮ';
+} elseif ($data['message']['text'] == 'Yo') {
+    $replyMessage = "โย่";
+} else {
+    $replyMessage = "ควย";
+}
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($replyMessage);
 $response = $bot->replyMessage($replyToken, $textMessageBuilder);
