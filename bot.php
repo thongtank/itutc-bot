@@ -25,6 +25,7 @@ $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('El29kUlVlDnk43OQWxmUu
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => 'eead3f759f457b2e8d3e711a074ef8d0']);
 
 $content = file_get_contents('php://input');
+print $content;exit;
 // Decode json data into array
 $events = json_decode($content, true);
 // Get events index 0
