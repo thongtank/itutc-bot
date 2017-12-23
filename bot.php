@@ -47,7 +47,7 @@ $replyToken = $data['replyToken'];
 
 $topic = trim($data['message']['text']);
 $query_string = 'tp=' . urlencode($topic);
-$json = file_get_contents('http://139.99.5.183/~tonglineat/get_reply.php?' . htmlentities($query_string));
+$json = file_get_contents('http://139.99.5.183/~tonglineat/get_reply.php?' . $query_string);
 $replyMessage = json_decode($json, true)
 $replyMessage = $replyMessage['reply_msg'];
 
