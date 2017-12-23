@@ -1,10 +1,10 @@
 <?php
-$host = "139.99.5.183";
+$host = "localhost";
 $user = "tonglineat_db";
 $password = "tong212224";
 $db = "tonglineat_db";
 
-$mysqli = new mysqli($host, $user, $password, $db, 3306);
+$mysqli = new mysqli($host, $user, $password, $db);
 /*
  * This is the "official" OO way to do it,
  * BUT $connect_error was broken until PHP 5.2.9 and 5.3.0.
@@ -23,7 +23,5 @@ if (mysqli_connect_error()) {
         . mysqli_connect_error());
 }
 
-echo 'Success... ' . $mysqli->host_info . "\n";
-
-$mysqli->close();
+$mysqli->set_charset('utf8');
 ?>
