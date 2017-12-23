@@ -37,13 +37,19 @@ $replyToken = $data['replyToken'];
 // จาร B: ได้กำไรวันละ $50 - $100
 // เรียนกับใครดี ?';
 
-if ($data['message']['text'] == 'Hi') {
-    $replyMessage = 'ไฮ';
-} elseif ($data['message']['text'] == 'Yo') {
-    $replyMessage = "โย่";
-} else {
-    $replyMessage = "ควย";
-}
+// if ($data['message']['text'] == 'Hi') {
+//     $replyMessage = 'ไฮ';
+// } elseif ($data['message']['text'] == 'Yo') {
+//     $replyMessage = "โย่";
+// } else {
+//     $replyMessage = "ควย";
+// }
+
+$topic = trim($data['message']['text']);
+$query_string = 'tp=' . urlencode($topic);
+$json = file_get_contents('http://139.99.5.183/~tonglineat/get_reply.php?' . htmlentities($query_string));
+$replyMessage = json_decode($json, true)
+$replyMessage = $replyMessage['reply_msg'];
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($replyMessage);
 $response = $bot->replyMessage($replyToken, $textMessageBuilder);
