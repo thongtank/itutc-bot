@@ -50,8 +50,8 @@ $query_string = 'tp=' . urlencode($topic);
 // $replyMessage = $query_string;
 $json = file_get_contents('http://139.99.5.183/~tonglineat/get_reply.php?' . $query_string);
 // $replyMessage = $json;
-$replyMessage = json_decode($json, true)
-$replyMessage = $replyMessage['message'];
+$replyMessage = json_decode($json)
+// $replyMessage = $replyMessage['message'];
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($replyMessage);
 $response = $bot->replyMessage($replyToken, $textMessageBuilder);
