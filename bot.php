@@ -46,10 +46,28 @@ $replyToken = $data['replyToken'];
 //     $replyMessage = "ควย";
 // }
 
-$topic = trim($data['message']['text']);
-$query_string = 'tp=' . urlencode($topic);
-// $replyMessage = $query_string;
-$replyMessage = file_get_contents('http://139.99.5.183/~tonglineat/get_reply.php?' . $query_string);
+// Start New Action
+$data = array('msg' => json_encode($data));
+
+// use key 'http' even if you send the request to https://...
+$options = array(
+    'http' => array(
+        'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+        'method' => 'POST',
+        'content' => http_build_query($data),
+    ),
+);
+$context = stream_context_create($options);
+
+$url = 'http://tong.ipugkung.com/itutcbot/getmsg.php';
+$replyMessage = file_get_contents($url, false, $context);
+// End New Action
+
+// Start Backup
+// $topic = trim($data['message']['text']);
+// $query_string = 'tp=' . urlencode($topic);
+// $replyMessage = file_get_contents('http://139.99.5.183/~tonglineat/get_reply.php?' . $query_string);
+// End Backup
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($replyMessage);
 $response = $bot->replyMessage($replyToken, $textMessageBuilder);
